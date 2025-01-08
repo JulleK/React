@@ -2,19 +2,44 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 50px 60px;
+  border: 5px solid black;
+  border-bottom: 2px solid black;
 }
 
 .box {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
+  border-right: 3px solid black;
+}
+
+.box:nth-child(3n) {
+  border: none;
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  gap: 30px;
+}
+
+.row:nth-child(3n) {
+  border-bottom: 3px solid black;
+}
+
+.cell {
+  padding: 2.5px 16px;
+}
+
+.cell:nth-child(1n) {
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.cell:nth-child(3n) {
+  border-right: none;
+}
+
+.row:nth-child(3n) > .cell {
+  border-bottom: none;
 }
