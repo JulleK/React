@@ -1,6 +1,14 @@
-import { useState } from "react";
+import _ from "lodash";
 
-export default function Cell() {
-  const [value, _setValue] = useState(Math.floor(Math.random() * 9) + 1);
+type CellProps = {
+  value: number | null;
+};
+
+const Cell: React.FC<CellProps> = ({ value }) => {
+  if (value === 0) {
+    value = null;
+  }
   return <div className="cell">{value}</div>;
-}
+};
+
+export default Cell;

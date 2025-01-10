@@ -4,6 +4,8 @@
   grid-template-rows: repeat(3, 1fr);
   border: 5px solid black;
   border-bottom: 2px solid black;
+  user-select: none;
+  -moz-user-select: none;
 }
 
 .box {
