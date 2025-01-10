@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Board from "./Board";
 import { SudokuBoardLayout } from "./sudokuTypes";
 import "./Game.css";
@@ -18,6 +18,10 @@ const sudokuBoard: SudokuBoardLayout = [
 const Game: React.FC = () => {
   const [currentGame, _setCurrentGame] =
     useState<SudokuBoardLayout>(sudokuBoard);
+
+  // TODO: store selected cell and highlight it
+  // const selectedCell = useRef(null);
+
   return <Board currentBoard={currentGame} />;
 };
 
