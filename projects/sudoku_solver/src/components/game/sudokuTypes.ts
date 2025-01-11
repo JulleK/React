@@ -1,4 +1,4 @@
-export type SudokuBox = [
+export type SudokuRow = [
   number,
   number,
   number,
@@ -11,13 +11,13 @@ export type SudokuBox = [
 ];
 
 export type SudokuBoardLayout = [
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox,
-  SudokuBox
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow,
+  SudokuRow
 ];

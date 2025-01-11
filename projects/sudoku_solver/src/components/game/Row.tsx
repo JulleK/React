@@ -2,14 +2,15 @@ import Cell from "./Cell";
 
 type RowProps = {
   values: number[];
+  onCellClick: (cell: HTMLDivElement) => void;
 };
 
-const Row: React.FC<RowProps> = ({ values }) => {
+const Row: React.FC<RowProps> = ({ values, onCellClick }) => {
   return (
     <div className="row">
-      <Cell value={values[0]} />
-      <Cell value={values[1]} />
-      <Cell value={values[2]} />
+      {values.map((value, cellIndex) => (
+        <Cell key={cellIndex} value={value} onCellClick={onCellClick} />
+      ))}
     </div>
   );
 };

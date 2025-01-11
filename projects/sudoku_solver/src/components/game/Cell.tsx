@@ -1,7 +1,6 @@
-import _ from "lodash";
-
 type CellProps = {
   value: number | null;
+  onCellClick: (cell: HTMLDivElement) => void;
 };
 
 const Cell: React.FC<CellProps> = ({ value }) => {

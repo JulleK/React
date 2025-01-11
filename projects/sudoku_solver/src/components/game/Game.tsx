@@ -19,10 +19,13 @@ const Game: React.FC = () => {
   const [currentGame, _setCurrentGame] =
     useState<SudokuBoardLayout>(sudokuBoard);
 
-  // TODO: store selected cell and highlight it
-  // const selectedCell = useRef(null);
+  const [selectedCell, setSelectedCell] = useState<HTMLDivElement | null>(null);
 
-  return <Board currentBoard={currentGame} />;
+  const handleCellClick = (cell: HTMLDivElement) => {
+    setSelectedCell(cell);
+  };
+
+  return <Board currentBoard={currentGame} onCellClick={handleCellClick} />;
 };
 
 export default Game;
