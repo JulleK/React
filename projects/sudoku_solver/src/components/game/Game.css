@@ -34,8 +34,8 @@
 }
 
 .cell:nth-child(1n) {
-  border-right: 2px solid rgba(0, 0, 0, 0.5);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  border-right: 2px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
 }
 
 .cell:nth-child(3n) {
