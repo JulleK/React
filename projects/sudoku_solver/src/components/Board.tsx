@@ -1,8 +1,8 @@
 import Row from "./Row";
-import { SudokuBoardLayout } from "../../sudokuTypes";
+import { SudokuBoard } from "../sudokuTypes";
 
 type BoardProps = {
-  currentBoard: SudokuBoardLayout;
+  currentBoard: SudokuBoard;
   onCellClick: (cell: HTMLDivElement) => void;
 };
 

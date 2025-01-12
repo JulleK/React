@@ -43,3 +43,11 @@
 .cell:nth-child(9) {
   border-right: none;
 }
+
+/* .cell-highlight {
+  color: blue;
+}
+
+.cell-no-highlight {
+  color: green;
+} */
