@@ -1,5 +1,5 @@
 import Row from "./Row";
-import { SudokuBoardLayout } from "./sudokuTypes";
+import { SudokuBoardLayout } from "../../sudokuTypes";
 
 type BoardProps = {
   currentBoard: SudokuBoardLayout;

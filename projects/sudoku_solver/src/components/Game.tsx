@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Board from "./Board";
-import { SudokuBoardLayout } from "./sudokuTypes";
-import "./Game.css";
+import { SudokuBoardLayout } from "../sudokuTypes";
+import "../Game.css";
 
 const sudokuBoard: SudokuBoardLayout = [
   [5, 3, 0, 0, 7, 0, 0, 0, 0],
