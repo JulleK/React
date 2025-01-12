@@ -7,6 +7,7 @@ const Cell: React.FC<CellProps> = ({ value }) => {
   if (value === 0) {
     value = null;
   }
+
   return <div className="cell">{value}</div>;
 };
 
