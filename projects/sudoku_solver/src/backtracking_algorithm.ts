@@ -39,11 +39,14 @@ function isValid(digit: Digit, pos: SudokuPosition, board: SudokuBoard) {
   return true;
 }
 
-export function solve(board: SudokuBoard) {
+export async function solveSudoku(
+  board: SudokuBoard,
+  updateBoard: (board: SudokuBoard) => Promise<void>
+): Promise<boolean> {
   const find = findEmpty(board);
 
   // if all the cells are filled, solution found
-  if (!find) return [true, board];
+  if (!find) return true;
 
   const { x, y } = find;
 
@@ -52,15 +55,26 @@ export function solve(board: SudokuBoard) {
       // if the number is valid, add it to the board
       board[y][x] = i;
 
-      if (solve(board)[0]) return [true, board];
+      // Update state after placing a digit
+      if (updateBoard) {
+        await updateBoard([...board.map((row) => [...row])] as SudokuBoard);
+      }
+
+      // Recursive call, ensure updateBoard is passed
+      if (await solveSudoku(board, updateBoard)) return true;
 
       // if the number isn't correct we reset it to 0
       //  and try again with different value
       board[y][x] = 0;
+
+      // Update state after backtracking
+      if (updateBoard) {
+        await updateBoard([...board.map((row) => [...row])] as SudokuBoard);
+      }
     }
   }
 
-  return [false, board];
+  return false;
 }
 
 function findEmpty(board: SudokuBoard): SudokuPosition | false {
