@@ -40,10 +40,12 @@ const Game: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 40));
     };
 
-    const solved = solveSudoku([...currentBoard], updateBoardWithDelay);
+    const solved = await solveSudoku([...currentBoard], updateBoardWithDelay);
 
     if (!solved) {
       alert("No solution exists!");
+    } else {
+      alert("MAMY TO!");
     }
 
     setSolving(false);
