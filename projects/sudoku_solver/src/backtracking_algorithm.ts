@@ -52,6 +52,8 @@ export async function solveSudoku(
 
   for (let i: Digit = 1 as Digit; i <= 9; i++) {
     if (isValid(i, { x, y }, board)) {
+      console.log("KURWA");
+
       // if the number is valid, add it to the board
       board[y][x] = i;
 
