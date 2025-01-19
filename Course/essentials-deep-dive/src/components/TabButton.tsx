@@ -1,4 +1,10 @@
-type Props = { children: string; onSelect: () => void; isSelected: boolean };
+import { ReactNode } from "react";
+
+type Props = {
+  children: ReactNode;
+  onSelect: () => void;
+  isSelected: boolean;
+};
 
 const TabButton: React.FC<Props> = ({ children, onSelect, isSelected }) => {
   console.log("TABBUTTON COMPONENT EXECUTING");
