@@ -1,14 +1,19 @@
-import { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
   buttons: ReactElement;
+  ButtonsWrapper?: JSX.ElementType;
 };
 
-const Tabs: React.FC<Props> = ({ children, buttons }) => {
+const Tabs: React.FC<Props> = ({
+  children,
+  buttons,
+  ButtonsWrapper = "menu",
+}) => {
   return (
     <>
-      <menu>{buttons}</menu>
+      <ButtonsWrapper>{buttons}</ButtonsWrapper>
       {children}
     </>
   );
