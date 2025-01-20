@@ -10,25 +10,30 @@ const Player: React.FC<Props> = ({ name, symbol }) => {
   const [playerName, setPlayerName] = useState(name);
 
   const handleEditClick = () => {
-    setIsEditing(true);
+    setIsEditing((editing) => !editing);
   };
 
-  const handleSaveClick = () => {
-    setIsEditing(false);
-    // todo: save player name
-    // setPlayerName();
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayerName(event.currentTarget.value);
   };
 
   return (
     <li>
       <span className="player">
         {!isEditing && <span className="player-name">{playerName}</span>}
-        {isEditing && <input type="text" autoFocus required />}
+        {isEditing && (
+          <input
+            type="text"
+            value={playerName}
+            onChange={handleInputChange}
+            autoFocus
+            required
+          />
+        )}
 
         <span className="player-symbol">{symbol}</span>
       </span>
-      {!isEditing && <button onClick={handleEditClick}>Edit</button>}
-      {isEditing && <button onClick={handleSaveClick}>Save</button>}
+      <button onClick={handleEditClick}>{!isEditing ? "Edit" : "Save"}</button>
     </li>
   );
 };
