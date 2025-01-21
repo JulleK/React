@@ -1,11 +1,10 @@
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import { useState } from "react";
-
-type playerSymbol = "X" | "O";
+import { PlayerSymbol } from "./types";
 
 const App: React.FC = () => {
-  const [activePlayer, setActivePlayer] = useState<playerSymbol>("X");
+  const [activePlayer, setActivePlayer] = useState<PlayerSymbol>("X");
 
   const handleSelectSquare = () => {
     setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));

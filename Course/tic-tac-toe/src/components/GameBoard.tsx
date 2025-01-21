@@ -1,7 +1,5 @@
 import { useState } from "react";
-
-type Cell = null | "X" | "O";
-type Board = Cell[][];
+import { PlayerSymbol, Board } from "../types";
 
 const initialBoard: Board = [
   [null, null, null],
@@ -11,7 +9,7 @@ const initialBoard: Board = [
 
 type Props = {
   onSelectSquare: () => void;
-  activePlayer: "X" | "O";
+  activePlayer: PlayerSymbol;
 };
 
 const GameBoard: React.FC<Props> = ({ onSelectSquare, activePlayer }) => {
