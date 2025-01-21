@@ -15,6 +15,13 @@ const Player: React.FC<Props> = ({ name, symbol }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.currentTarget.value);
+    // here
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setIsEditing(false);
+    }
   };
 
   return (
@@ -26,6 +33,7 @@ const Player: React.FC<Props> = ({ name, symbol }) => {
             type="text"
             value={playerName}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             autoFocus
             required
           />
