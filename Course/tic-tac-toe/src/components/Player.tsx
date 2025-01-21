@@ -3,9 +3,10 @@ import { useState } from "react";
 type Props = {
   name: string;
   symbol: string;
+  isActive?: boolean;
 };
 
-const Player: React.FC<Props> = ({ name, symbol }) => {
+const Player: React.FC<Props> = ({ name, symbol, isActive = false }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
@@ -25,7 +26,7 @@ const Player: React.FC<Props> = ({ name, symbol }) => {
   };
 
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {!isEditing && <span className="player-name">{playerName}</span>}
         {isEditing && (

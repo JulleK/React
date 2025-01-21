@@ -9,9 +9,12 @@ const initialBoard: Board = [
   [null, null, null],
 ];
 
-type Props = {};
+type Props = {
+  onSelectSquare: () => void;
+  activePlayer: "X" | "O";
+};
 
-const GameBoard: React.FC<Props> = ({}) => {
+const GameBoard: React.FC<Props> = ({ onSelectSquare, activePlayer }) => {
   const [gameBoard, setGameBoard] = useState(initialBoard);
 
   const handleSelectSquare = (rowIndex: number, colIndex: number) => {
@@ -19,9 +22,11 @@ const GameBoard: React.FC<Props> = ({}) => {
       const updatedBoard = [
         ...prevGameBoard.map((innerArray) => [...innerArray]),
       ];
-      updatedBoard[rowIndex][colIndex] = "X";
+      updatedBoard[rowIndex][colIndex] = activePlayer;
       return updatedBoard;
     });
+
+    onSelectSquare();
   };
 
   return (
