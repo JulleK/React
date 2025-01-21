@@ -16,7 +16,6 @@ const Player: React.FC<Props> = ({ name, symbol, isActive = false }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlayerName(event.currentTarget.value);
-    // here
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
