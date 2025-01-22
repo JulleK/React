@@ -4,18 +4,24 @@ import Log from "./components/Log";
 import { useState } from "react";
 import { PlayerSymbol, GameTurn } from "./types";
 
+function deriveActivePlayer(gameTurns: GameTurn[]) {
+  let currentPlayer: PlayerSymbol = "X";
+
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+
+  return currentPlayer;
+}
+
 const App: React.FC = () => {
-  const [activePlayer, setActivePlayer] = useState<PlayerSymbol>("X");
   const [gameTurns, setGameTurns] = useState<GameTurn[]>([]);
 
-  const handleSelectSquare = (rowIndex: number, colIndex: number) => {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
-    setGameTurns((prevTurns: GameTurn[]) => {
-      let currentPlayer: PlayerSymbol = "X";
+  const activePlayer = deriveActivePlayer(gameTurns);
 
-      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
-        currentPlayer = "O";
-      }
+  const handleSelectSquare = (rowIndex: number, colIndex: number) => {
+    setGameTurns((prevTurns: GameTurn[]) => {
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
       const updatedTurns: GameTurn[] = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
