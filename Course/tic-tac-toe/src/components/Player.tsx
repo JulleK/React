@@ -1,17 +1,27 @@
 import { useState } from "react";
+import { PlayerSymbol } from "../types";
 
 type Props = {
   name: string;
-  symbol: string;
+  symbol: PlayerSymbol;
   isActive?: boolean;
+  onNameChange: (symbol: PlayerSymbol, name: string) => void;
 };
 
-const Player: React.FC<Props> = ({ name, symbol, isActive = false }) => {
+const Player: React.FC<Props> = ({
+  name,
+  symbol,
+  isActive = false,
+  onNameChange,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
   const handleEditClick = () => {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onNameChange(symbol, playerName);
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +31,9 @@ const Player: React.FC<Props> = ({ name, symbol, isActive = false }) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setIsEditing(false);
+      if (isEditing) {
+        onNameChange(symbol, playerName);
+      }
     }
   };
 

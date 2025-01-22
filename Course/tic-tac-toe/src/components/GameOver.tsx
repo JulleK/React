@@ -1,6 +1,4 @@
-import { PlayerSymbol } from "../types";
-
-type Props = { winner: PlayerSymbol | undefined; onRestart: () => void };
+type Props = { winner: string | undefined; onRestart: () => void };
 
 const GameOver: React.FC<Props> = ({ winner, onRestart }) => {
   return (
