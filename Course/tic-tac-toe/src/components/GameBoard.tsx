@@ -1,35 +1,23 @@
-import { Board, GameTurn } from "../types";
+import { Board } from "../types";
+import Square from "./Square";
 
 type Props = {
   onSelectSquare: (rowIndex: number, colIndex: number) => void;
-  turns: GameTurn[];
+  board: Board;
 };
 
-const initialBoard: Board = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-const GameBoard: React.FC<Props> = ({ onSelectSquare, turns }) => {
-  const gameBoard = initialBoard;
-
-  for (const turn of turns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
-
+const GameBoard: React.FC<Props> = ({ onSelectSquare, board }) => {
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
-                  {playerSymbol}
-                </button>
+                <Square
+                  playerSymbol={playerSymbol}
+                  onSquareClick={() => onSelectSquare(rowIndex, colIndex)}
+                />
               </li>
             ))}
           </ol>
