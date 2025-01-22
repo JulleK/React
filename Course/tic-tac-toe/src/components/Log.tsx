@@ -7,8 +7,8 @@ type Props = {
 const Log: React.FC<Props> = ({ turns }) => {
   return (
     <ol id="log">
-      {turns.map((turn) => (
-        <li key={`${turn.square.row}${turn.square.row}`}>
+      {turns.map((turn, index) => (
+        <li key={index}>
           {turn.player} selected {turn.square.row},{turn.square.col}
         </li>
       ))}
