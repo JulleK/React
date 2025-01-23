@@ -1,7 +1,11 @@
+import Header from "./components/Header";
+// import UserInputs from "./components/UserInputs";
+
 const App: React.FC = () => {
   return (
     <>
-      <h1>React Investment Calculator</h1>
+      <Header />
+      {/* <UserInputs /> */}
     </>
   );
 };
