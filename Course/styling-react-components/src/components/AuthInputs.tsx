@@ -1,4 +1,11 @@
 import { useState } from "react";
+import { styled } from "styled-components";
+
+const StyledDiv = styled.div`
+  text-align: center;
+  color: #a39191;
+  margin: 0;
+`;
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
