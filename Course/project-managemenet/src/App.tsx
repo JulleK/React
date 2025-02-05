@@ -2,6 +2,8 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import { Project } from "./types";
 import NewProject from "./components/NewProject";
+import NoProjectSelected from "./components/NoProjectSelected";
+import ProjectPage from "./components/ProjectPage";
 
 const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState("");
@@ -23,7 +25,22 @@ const App: React.FC = () => {
   };
 
   const handleSaveNewProject = (newProject: Project) => {
-    setProjects((prevProjects) => [...prevProjects, newProject]);
+    setProjects((prevProjects) => {
+      if (!prevProjects.find((project) => project.title === newProject.title))
+        return [...prevProjects, newProject];
+      else {
+        const filteredProjects = prevProjects.filter(
+          (project) => project.title !== newProject.title
+        );
+        return [...filteredProjects, newProject];
+      }
+    });
+
+    setSelectedProject(newProject.title);
+  };
+
+  const handleSelectProject = (title: string) => {
+    setSelectedProject(title);
   };
 
   return (
@@ -31,22 +48,20 @@ const App: React.FC = () => {
       <Sidebar
         projects={projects.map((proj) => proj.title)}
         onAddProject={handleAddNewProject}
+        onSelectProject={handleSelectProject}
       />
-      <div className="flex flex-col items-center w-full">
+      <div className="flex flex-col items-center w-full text-stone-700">
+        {projects.map((project) => (
+          <ProjectPage
+            project={project}
+            active={project.title === selectedProject}
+          />
+        ))}
+
         {!selectedProject && (
-          <div className="text-stone-600 text-center">
-            <h3 className="text-3xl mb-6 font-bold">No Project Selected</h3>
-            <p className="mb-10 text-stone-500">
-              Select a project to get started
-            </p>
-            <button
-              className="button add-project-button"
-              onClick={handleAddNewProject}
-            >
-              Create new project
-            </button>
-          </div>
+          <NoProjectSelected onButtonClick={handleAddNewProject} />
         )}
+
         {selectedProject === "new" && (
           <NewProject
             onSave={handleSaveNewProject}

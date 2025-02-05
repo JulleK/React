@@ -22,6 +22,11 @@
   rounded-xs min-h-10 p-2;
 }
 
+.task-input {
+  @apply w-[70%] bg-stone-200
+  rounded-xs min-h-10 p-2;
+}
+
 .label {
   @apply block text-lg font-bold text-stone-600 mt-6;
 }
