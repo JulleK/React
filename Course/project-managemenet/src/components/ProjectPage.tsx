@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Project, Task } from "../types";
+import TaskList from "./TaskList";
 
 type Props = {
   project: Project;
@@ -18,11 +19,14 @@ const ProjectPage: React.FC<Props> = ({
   const handleAddTask = (event: React.FormEvent) => {
     event.preventDefault();
     if (input.current?.value) {
-      setTasks((prevTasks) => [input.current!.value, ...prevTasks]);
+      const newTask = input.current.value;
+      setTasks((prevTasks) => [newTask, ...prevTasks]);
+      input.current.value = "";
+      input.current.focus();
     }
   };
 
-  const clearTask = (targetIndex: number) => {
+  const handleClearTask = (targetIndex: number) => {
     setTasks((prevTasks) => {
       return prevTasks.filter((_task, index) => index !== targetIndex);
     });
@@ -55,19 +59,7 @@ const ProjectPage: React.FC<Props> = ({
       )}
 
       {tasks.length !== 0 && (
-        <ul className="bg-stone-50 mt-8 rounded p-6 pb-4 text-stone-800">
-          {tasks.map((task, index) => (
-            <li key={index} className="mb-4 w-full flex">
-              <span className="truncate flex-1 min-w-0 pr-4">{task}</span>
-              <button
-                className="flex-shrink-0 cursor-pointer"
-                onClick={() => clearTask(index)}
-              >
-                Clear
-              </button>
-            </li>
-          ))}
-        </ul>
+        <TaskList tasks={tasks} onClearTask={handleClearTask} />
       )}
     </div>
   );
