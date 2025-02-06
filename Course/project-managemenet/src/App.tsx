@@ -39,6 +39,14 @@ const App: React.FC = () => {
     setSelectedProject(newProject.title);
   };
 
+  const handleDeleteProject = (title: string) => {
+    setProjects((prevProjects) => {
+      return [...prevProjects.filter((project) => project.title !== title)];
+    });
+
+    setSelectedProject("");
+  };
+
   const handleSelectProject = (title: string) => {
     setSelectedProject(title);
   };
@@ -55,6 +63,7 @@ const App: React.FC = () => {
           <ProjectPage
             project={project}
             active={project.title === selectedProject}
+            onDeleteProject={handleDeleteProject}
           />
         ))}
 

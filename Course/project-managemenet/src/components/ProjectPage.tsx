@@ -4,9 +4,14 @@ import { Project, Task } from "../types";
 type Props = {
   project: Project;
   active?: boolean;
+  onDeleteProject: (title: string) => void;
 };
 
-const ProjectPage: React.FC<Props> = ({ project, active = false }) => {
+const ProjectPage: React.FC<Props> = ({
+  project,
+  active = false,
+  onDeleteProject,
+}) => {
   const input = useRef<HTMLInputElement>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -25,6 +30,12 @@ const ProjectPage: React.FC<Props> = ({ project, active = false }) => {
 
   return (
     <div className={`w-[50%]${!active ? " hidden" : ""}`}>
+      <button
+        className="float-right text-stone-600 button"
+        onClick={() => onDeleteProject(project.title)}
+      >
+        Clear
+      </button>
       <h2 className="text-4xl font-bold">{project.title}</h2>
       <p className="text-stone-400 mt-3">{project.date}</p>
       <p className="mt-5">{project.description}</p>
