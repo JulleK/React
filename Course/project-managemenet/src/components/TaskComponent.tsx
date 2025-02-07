@@ -4,11 +4,17 @@ type Props = {
   text: Task;
   index?: number;
   onClearTask: (index: number) => void;
+  Tag?: JSX.ElementType;
 };
 
-const TaskComponent: React.FC<Props> = ({ text, index = 0, onClearTask }) => {
+const TaskComponent: React.FC<Props> = ({
+  text,
+  index = 0,
+  onClearTask,
+  Tag = "li",
+}) => {
   return (
-    <li key={index} className="mb-4 w-full flex">
+    <Tag key={index} className="mb-4 w-full flex">
       <span className="truncate flex-1 min-w-0 pr-4">{text}</span>
       <button
         className="flex-shrink-0 cursor-pointer"
@@ -16,7 +22,7 @@ const TaskComponent: React.FC<Props> = ({ text, index = 0, onClearTask }) => {
       >
         Clear
       </button>
-    </li>
+    </Tag>
   );
 };
 
