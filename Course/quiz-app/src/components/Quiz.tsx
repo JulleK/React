@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Answer } from "../quizTypes";
 import quizCompleteImg from "../assets/quiz-complete.png";
 
 import QUESTIONS from "../questions";
+import UserAnswers from "./UserAnswers";
+import QuestionTimer from "./QuestionTimer";
 
 const Quiz: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
@@ -11,9 +13,13 @@ const Quiz: React.FC = () => {
   const activeQuestion = QUESTIONS[activeQuestionIndex];
   const quizIsOver = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = (selectedAnswer: Answer) => {
+  const handleSelectAnswer = useCallback((selectedAnswer: Answer) => {
     setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
-  };
+  }, []);
+
+  const handleSkipAnswer = useCallback(() => {
+    handleSelectAnswer("");
+  }, [handleSelectAnswer]);
 
   if (quizIsOver) {
     return (
@@ -31,18 +37,15 @@ const Quiz: React.FC = () => {
   return (
     <div id="quiz">
       <div id="question">
+        <QuestionTimer
+          onTimerExpired={handleSkipAnswer}
+          key={activeQuestionIndex}
+        />
         <h2>{activeQuestion.text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer, idx) => {
-            return (
-              <li key={idx} className="answer">
-                <button onClick={() => handleSelectAnswer(answer)}>
-                  {answer}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <UserAnswers
+          answers={shuffledAnswers}
+          onSelectAnswer={handleSelectAnswer}
+        />
       </div>
     </div>
   );
