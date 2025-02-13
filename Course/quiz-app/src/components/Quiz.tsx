@@ -20,7 +20,7 @@ const Quiz: React.FC = () => {
   }, [handleSelectAnswer]);
 
   if (quizIsOver) {
-    return <QuizSummary />;
+    return <QuizSummary userAnswers={userAnswers} />;
   }
 
   return (
