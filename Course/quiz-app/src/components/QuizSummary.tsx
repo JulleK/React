@@ -1,6 +1,13 @@
 import quizCompleteImg from "../assets/quiz-complete.png";
-import { Answer } from "../quizTypes";
 import QUESTIONS from "../questions";
+
+import {
+  Answer,
+  SummaryAnswer,
+  SummaryUserAnswers,
+  SummaryStats,
+  SummaryStatus,
+} from "../quizTypes";
 
 type Props = {
   userAnswers: Answer[];
@@ -8,21 +15,31 @@ type Props = {
 
 const QuizSummary: React.FC<Props> = ({ userAnswers }) => {
   const correctAnswers = QUESTIONS.map((question) => question.answers[0]);
-  const numberOfQuestions = correctAnswers.length;
+  const summaryUserAnswers: SummaryUserAnswers = userAnswers.map(
+    (answer, index) => {
+      let status = "";
+      if (answer === "") status = "skipped";
+      else if (answer === correctAnswers[index]) status = "correct";
+      else status = "wrong";
 
-  let userScore = 0;
-  for (let i = 0; i < userAnswers.length; i++) {
-    if (userAnswers[i] === correctAnswers[i]) userScore++;
+      return { text: answer, status } as SummaryAnswer;
+    }
+  );
+
+  const summaryStats: SummaryStats = {
+    skipped: 0,
+    correct: 0,
+    wrong: 0,
+  };
+
+  for (const answer of summaryUserAnswers) {
+    summaryStats[answer.status]++;
   }
 
-  let statsMessage = "WOW! You did amazing! I'd hire you :)";
-  if (userScore * 3 < numberOfQuestions) {
-    statsMessage = "man, that's horrible, to be honest.";
-  } else if (userScore * 2 < numberOfQuestions) {
-    statsMessage = "Not bad, but you still have to learn.";
-  } else if (userScore * 1.33 < numberOfQuestions) {
-    statsMessage = "Damn, that's a nice looking React Developer over here!";
-  }
+  const getStatusValue = (status: string) => {
+    const statusAsKey = status as SummaryStatus;
+    return summaryStats[statusAsKey];
+  };
 
   return (
     <div id="summary">
@@ -30,30 +47,25 @@ const QuizSummary: React.FC<Props> = ({ userAnswers }) => {
       <img src={quizCompleteImg} />
 
       <div id="summary-stats">
-        <p>
-          <span className="number">
-            {userScore} / {numberOfQuestions}
-          </span>
-          <span className="text">{statsMessage}</span>
-        </p>
+        {Object.keys(summaryStats).map((status) => (
+          <p key={status}>
+            <span className="number">
+              {Math.round((getStatusValue(status) / QUESTIONS.length) * 100)}%
+            </span>
+            <span className="text">{status}</span>
+          </p>
+        ))}
       </div>
 
       <ol className="answer-details">
-        {userAnswers.map((answer, index) => {
-          let cssClassUserAnswer = "user-answer";
-
-          if (answer === "") {
-            cssClassUserAnswer += " skipped";
-          } else if (answer === correctAnswers[index]) {
-            cssClassUserAnswer += " correct";
-          } else {
-            cssClassUserAnswer += " wrong";
-          }
-
+        {summaryUserAnswers.map((answer, index) => {
           return (
             <li key={index}>
-              <div className="question">{QUESTIONS[index].text}</div>
-              <div className={cssClassUserAnswer}>{answer}</div>
+              <h3>{index + 1}</h3>
+              <p className="question">{QUESTIONS[index].text}</p>
+              <p className={`user-answer ${answer.status}`}>
+                {answer.text ?? "Skipped"}
+              </p>
             </li>
           );
         })}
