@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { Answer } from "../quizTypes";
-import quizCompleteImg from "../assets/quiz-complete.png";
 
 import QUESTIONS from "../questions";
 import UserAnswers from "./UserAnswers";
 import QuestionTimer from "./QuestionTimer";
+import QuizSummary from "./QuizSummary";
 
 const Quiz: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
@@ -22,12 +22,7 @@ const Quiz: React.FC = () => {
   }, [handleSelectAnswer]);
 
   if (quizIsOver) {
-    return (
-      <div id="summary">
-        <h2>Quiz Completed!</h2>
-        <img src={quizCompleteImg} />
-      </div>
-    );
+    return <QuizSummary />;
   }
 
   const shuffledAnswers = [...activeQuestion.answers].sort(
