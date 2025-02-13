@@ -9,7 +9,6 @@ const QuestionTimer: React.FC<Props> = ({ time = 5000, onTimerExpired }) => {
   const [remainingTime, setRemainingTime] = useState(time);
 
   useEffect(() => {
-    console.log("SETTING TIMEOUT");
     const timeout = setTimeout(onTimerExpired, time);
 
     return () => {
@@ -18,9 +17,7 @@ const QuestionTimer: React.FC<Props> = ({ time = 5000, onTimerExpired }) => {
   }, [time, onTimerExpired]);
 
   useEffect(() => {
-    console.log("SETTING INTERVAL");
     const interval = setInterval(() => {
-      console.log("interval");
       setRemainingTime((prevTime) => prevTime - 50);
     }, 50);
 

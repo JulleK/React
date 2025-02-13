@@ -4,3 +4,5 @@ export type Question = {
   text: string;
   answers: [Answer, Answer, Answer, Answer];
 };
+
+export type AnswerState = "" | "answered" | "correct" | "wrong";

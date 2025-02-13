@@ -2,16 +2,14 @@ import { useCallback, useState } from "react";
 import { Answer } from "../quizTypes";
 
 import QUESTIONS from "../questions";
-import UserAnswers from "./UserAnswers";
-import QuestionTimer from "./QuestionTimer";
 import QuizSummary from "./QuizSummary";
+import Question from "./Question";
 
 const Quiz: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
 
   const activeQuestionIndex = userAnswers.length;
-  const activeQuestion = QUESTIONS[activeQuestionIndex];
-  const quizIsOver = activeQuestionIndex === QUESTIONS.length;
+  const quizIsOver = activeQuestionIndex >= QUESTIONS.length;
 
   const handleSelectAnswer = useCallback((selectedAnswer: Answer) => {
     setUserAnswers((prevAnswers) => [...prevAnswers, selectedAnswer]);
@@ -25,23 +23,14 @@ const Quiz: React.FC = () => {
     return <QuizSummary />;
   }
 
-  const shuffledAnswers = [...activeQuestion.answers].sort(
-    () => Math.random() - 0.5
-  );
-
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer
-          onTimerExpired={handleSkipAnswer}
-          key={activeQuestionIndex}
-        />
-        <h2>{activeQuestion.text}</h2>
-        <UserAnswers
-          answers={shuffledAnswers}
-          onSelectAnswer={handleSelectAnswer}
-        />
-      </div>
+      <Question
+        key={activeQuestionIndex}
+        index={activeQuestionIndex}
+        onSelectAnswer={handleSelectAnswer}
+        onSkipAnswer={handleSkipAnswer}
+      />
     </div>
   );
 };
