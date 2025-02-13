@@ -3,9 +3,14 @@ import { useEffect, useState } from "react";
 type Props = {
   time?: number;
   onTimerExpired: () => void;
+  mode?: string;
 };
 
-const QuestionTimer: React.FC<Props> = ({ time = 5000, onTimerExpired }) => {
+const QuestionTimer: React.FC<Props> = ({
+  time = 10000,
+  onTimerExpired,
+  mode = "",
+}) => {
   const [remainingTime, setRemainingTime] = useState(time);
 
   useEffect(() => {
@@ -18,15 +23,22 @@ const QuestionTimer: React.FC<Props> = ({ time = 5000, onTimerExpired }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 50);
-    }, 50);
+      setRemainingTime((prevTime) => prevTime - 100);
+    }, 100);
 
     return () => {
       clearInterval(interval);
     };
   }, []);
 
-  return <progress id="question-time" value={remainingTime} max={time} />;
+  return (
+    <progress
+      id="question-time"
+      value={remainingTime}
+      max={time}
+      className={mode}
+    />
+  );
 };
 
 export default QuestionTimer;

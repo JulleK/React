@@ -22,6 +22,16 @@ const Question: React.FC<Props> = ({ index, onSelectAnswer, onSkipAnswer }) => {
     isCorrect: null,
   });
 
+  let timer = 10000;
+
+  if (answer.selectedAnswer) {
+    timer = 1000;
+  }
+
+  if (answer.isCorrect !== null) {
+    timer = 2000;
+  }
+
   const handleSelectAnswer = (answer: Answer) => {
     setAnswer({
       selectedAnswer: answer,
@@ -50,7 +60,12 @@ const Question: React.FC<Props> = ({ index, onSelectAnswer, onSkipAnswer }) => {
 
   return (
     <div id="question">
-      <QuestionTimer onTimerExpired={onSkipAnswer} />
+      <QuestionTimer
+        key={timer}
+        onTimerExpired={answer.selectedAnswer === "" ? onSkipAnswer : () => {}}
+        time={timer}
+        mode={answerState}
+      />
       <h2>{QUESTIONS[index].text}</h2>
       <UserAnswers
         answers={QUESTIONS[index].answers}
