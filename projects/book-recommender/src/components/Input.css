@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+.input-container {
+  @apply flex flex-col justify-between mt-4 w-96 items-center;
+}
+
+.input-label {
+  @apply block mb-3;
+}
+
+.input {
+  @apply bg-stone-700 rounded p-2 h-10 w-60
+        focus:outline-none focus:bg-stone-600;
+}
+
+.input-button {
+  @apply bg-stone-300 rounded text-black py-2 w-20 
+  hover:bg-stone-400 cursor-pointer ml-6;
+}

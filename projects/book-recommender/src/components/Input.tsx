@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import "./Input.css";
 
 type Props = {
   children?: React.ReactNode;
@@ -22,8 +23,8 @@ const Input: React.FC<Props> = ({
   };
 
   return (
-    <div className="user-prompt-container">
-      <label htmlFor={id} className="user-prompt-label">
+    <div className="input-container">
+      <label htmlFor={id} className="input-label">
         {children}
       </label>
       <div>
@@ -32,9 +33,9 @@ const Input: React.FC<Props> = ({
           type="text"
           id={id}
           placeholder={placeholder}
-          className="user-prompt-input"
+          className="input"
         />
-        <button onClick={handleClick} className="user-prompt-button">
+        <button onClick={handleClick} className="input-button">
           {buttonText}
         </button>
       </div>
