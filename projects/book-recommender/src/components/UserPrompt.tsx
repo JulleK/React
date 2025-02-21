@@ -1,37 +1,29 @@
-import { useState, useRef } from "react";
-import "./UserPrompt.css";
-import Modal from "./Modal";
-import UserBookPrompt from "./UserBookPrompt";
-import UserAuthorPrompt from "./UserAuthorPrompt";
+import Input from "./Input";
 
-const MAX_BOOKS = 3;
-const MAX_AUTHORS = 3;
+type Props = {
+  children: React.ReactNode;
+  labelText: string | React.ReactElement;
+  onAddUserAuthor: (value: string) => void;
+  autocompleteData: string[];
+};
 
-const UserPrompt: React.FC = () => {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const [dialogMessage, setDialogMessage] = useState("");
-
-  const handleBookLimitReached = () => {
-    setDialogMessage(`You can select up to ${MAX_BOOKS} books`);
-    dialog.current?.showModal();
-  };
-
-  const handleAuthorLimitReached = () => {
-    setDialogMessage(`You can select up to ${MAX_AUTHORS} authors`);
-    dialog.current?.showModal();
-  };
-
+const UserPrompt: React.FC<Props> = ({
+  children,
+  labelText,
+  onAddUserAuthor,
+  autocompleteData = [],
+}) => {
   return (
-    <div>
-      <Modal message={dialogMessage} ref={dialog} />
-      <UserBookPrompt
-        max_books={MAX_BOOKS}
-        onBookLimitReached={handleBookLimitReached}
-      />
-      <UserAuthorPrompt
-        max_authors={MAX_AUTHORS}
-        onAuthorLimitReached={handleAuthorLimitReached}
-      />
+    <div className="user-prompt-container">
+      <Input
+        id="user-author"
+        onButtonClick={onAddUserAuthor}
+        placeholder="Find your authors..."
+        autocompleteData={autocompleteData}
+      >
+        {labelText}
+      </Input>
+      <ul className="user-prompt-list">{children}</ul>
     </div>
   );
 };
