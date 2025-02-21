@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 import "./Input.css";
 
 type Props = {
@@ -7,19 +7,32 @@ type Props = {
   buttonText?: string;
   onButtonClick: (inputValue: string) => void;
   placeholder?: string;
+  autocompleteData: string[];
 };
 
 const Input: React.FC<Props> = ({
   children,
   id,
-  buttonText = "add",
   onButtonClick,
   placeholder,
+  autocompleteData = [],
 }) => {
-  const input = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const handleClick = () => {
-    if (input.current) onButtonClick(input.current.value);
+  const filteredAutocompleteData = autocompleteData.filter((value) =>
+    value.toLowerCase().includes(inputValue.trim().toLowerCase())
+  );
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    setShowSuggestions(true);
+  };
+
+  const handleSelectSuggestion = (suggestion: string) => {
+    onButtonClick(suggestion);
+    setInputValue("");
+    setShowSuggestions(false);
   };
 
   return (
@@ -29,15 +42,31 @@ const Input: React.FC<Props> = ({
       </label>
       <div>
         <input
-          ref={input}
           type="text"
           id={id}
           placeholder={placeholder}
           className="input"
+          value={inputValue}
+          onChange={handleInputChange}
         />
-        <button onClick={handleClick} className="input-button">
-          {buttonText}
-        </button>
+
+        {showSuggestions && inputValue && (
+          <div className="input-suggestions-container">
+            {filteredAutocompleteData.length > 0 ? (
+              filteredAutocompleteData.map((suggestion) => (
+                <div
+                  key={suggestion}
+                  onClick={() => handleSelectSuggestion(suggestion)}
+                  className="input-suggestion"
+                >
+                  {suggestion}
+                </div>
+              ))
+            ) : (
+              <div className="input-no-suggestion-found">No authors found</div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

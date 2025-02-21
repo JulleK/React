@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Input from "./Input";
 import { UserAuthor } from "../types";
+import { authors } from "../data";
+
+const AUTHOR_NAMES = authors.map((author) => author.name);
 
 type Props = {
   max_authors: number;
@@ -23,12 +26,14 @@ const UserAuthorPrompt: React.FC<Props> = ({
       return [...prevAuthors, { name }];
     });
   };
+
   return (
     <div className="user-prompt-container">
       <Input
         id="user-author"
         onButtonClick={handleAddUserAuthor}
         placeholder="Find your authors..."
+        autocompleteData={AUTHOR_NAMES}
       >
         What are your all-time favorite <b>authors</b>? (max: {max_authors})
       </Input>
